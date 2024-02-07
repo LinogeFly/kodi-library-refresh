@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="service.library-refresh"
+       name="Library Refresh"
+       version="0.1.0"
+       provider-name="LinogeFly">
+  <requires>
+    <import addon="xbmc.python" version="3.0.1"/>
+    <import addon="script.module.watchdog" version="0.10.2"/>
+  </requires>
+  <extension point="xbmc.service" library="service.py" />
+  <extension point="xbmc.python.script" library="script.py" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Keeps Kodi library up to date.</summary>
+    <description lang="en_GB">The add-on watches for changes in media sources and automatically updates the library, to make sure its content stays up to date.</description>
+    <platform>all</platform>
+    <license>MIT</license>
+    <source>https://github.com/LinogeFly/kodi-library-refresh</source>
+    <assets>
+      <icon>resources/icon.png</icon>
+    </assets>
+  </extension>
+</addon>

@@ -1,0 +1,16 @@
+{
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./tests"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "black-formatter.args": [
+        "--line-length",
+        "119"
+    ],
+    "[python]": {
+        "editor.formatOnSave": true
+    }
+}

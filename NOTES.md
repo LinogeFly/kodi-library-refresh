@@ -114,6 +114,8 @@ Linux:
 tail -F -n 1000 ~/.kodi/temp/kodi.log | grep service.library-refresh --color=never
 ```
 
+## Testing
+
 ### Create multiple files
 
 Linux:
@@ -122,10 +124,102 @@ Linux:
 touch {001..010}.mkv
 ```
 
-Windows:
+Windows (PowerShell):
 
 ```
 new-item $(01..20 | %{"$_.mkv"})
+```
+
+### Create movie files - Set 1
+
+Linux:
+
+```
+touch Conan.the.Barbarian.1982.mkv; \
+touch Conan.the.Destroyer.1984.mkv; \
+touch The.Terminator.1984.mkv; \
+touch Commando.1985.mkv; \
+touch Predator.1987.mkv; \
+touch The.Running.Man.1987.mkv; \
+touch Twins.1988.mkv; \
+touch Total.Recall.1990.mkv; \
+touch Kindergarten.Cop.1990.mkv; \
+touch Terminator.2.Judgment.Day.1991.mkv; \
+touch Last.Action.Hero.1993.mkv; \
+touch True.Lies.1994.mkv; \
+touch Eraser.1996.mkv; \
+touch Jingle.All.the.Way.1996.mkv; \
+touch The.Expendables.2010.mkv; \
+touch The.Expendables.2.2012.mkv; \
+touch The.Expendables.3.2014.mkv
+```
+
+Windows (PowerShell):
+
+```
+new-item "Conan.the.Barbarian.1982.mkv" -Force; `
+new-item "Conan.the.Destroyer.1984.mkv" -Force; `
+new-item "The.Terminator.1984.mkv" -Force; `
+new-item "Commando.1985.mkv" -Force; `
+new-item "Predator.1987.mkv" -Force; `
+new-item "The.Running.Man.1987.mkv" -Force; `
+new-item "Twins.1988.mkv" -Force; `
+new-item "Total.Recall.1990.mkv" -Force; `
+new-item "Kindergarten.Cop.1990.mkv" -Force; `
+new-item "Terminator.2.Judgment.Day.1991.mkv" -Force; `
+new-item "Last.Action.Hero.1993.mkv" -Force; `
+new-item "True.Lies.1994.mkv" -Force; `
+new-item "Eraser.1996.mkv" -Force; `
+new-item "Jingle.All.the.Way.1996.mkv" -Force; `
+new-item "The.Expendables.2010.mkv" -Force; `
+new-item "The.Expendables.2.2012.mkv" -Force; `
+new-item "The.Expendables.3.2014.mkv" -Force;
+```
+
+### Create movie files - Set 2
+
+Linux:
+
+```
+touch Rocky.1976.mkv; \
+touch Rocky.II.1979.mkv; \
+touch Rocky.III.1982.mkv; \
+touch First.Blood.1982.mkv; \
+touch Rambo.First.Blood.Part.II.1985.mkv; \
+touch Rocky.IV.1985.mkv; \
+touch Cobra.1986.mkv; \
+touch Over.the.Top.1987.mkv; \
+touch Rambo.III.1988.mkv; \
+touch 'Tango.&.Cash.1989.mkv'; \
+touch Cliffhanger.1983.mkv; \
+touch Demolition.Man.1983.mkv; \
+touch Judge.Dredd.1995.mkv; \
+touch Rambo.2008.mkv; \
+touch The.Expendables.2010.mkv; \
+touch The.Expendables.2.2012.mkv; \
+touch The.Expendables.3.2014.mkv
+```
+
+Windows (PowerShell):
+
+```
+new-item "Rocky.1976.mkv" -Force; `
+new-item "Rocky.II.1979.mkv" -Force; `
+new-item "Rocky.III.1982.mkv" -Force; `
+new-item "First.Blood.1982.mkv" -Force; `
+new-item "Rambo.First.Blood.Part.II.1985.mkv" -Force; `
+new-item "Rocky.IV.1985.mkv" -Force; `
+new-item "Cobra.1986.mkv" -Force; `
+new-item "Over.the.Top.1987.mkv" -Force; `
+new-item "Rambo.III.1988.mkv" -Force; `
+new-item "Tango.&.Cash.1989.mkv" -Force; `
+new-item "Cliffhanger.1983.mkv" -Force; `
+new-item "Demolition.Man.1983.mkv" -Force; `
+new-item "Judge.Dredd.1995.mkv" -Force; `
+new-item "Rambo.2008.mkv" -Force; `
+new-item "The.Expendables.2010.mkv" -Force; `
+new-item "The.Expendables.2.2012.mkv" -Force; `
+new-item "The.Expendables.3.2014.mkv" -Force;
 ```
 
 ## Copy to HTPC

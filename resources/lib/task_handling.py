@@ -20,7 +20,6 @@ class TaskHandlerFactory:
 
 class CleanLibraryTaskHandler:
     WAIT_TO_START_TIMEOUT = 5
-    WAIT_TO_FINISH_TIMEOUT = 60
 
     def __init__(self, task: tasks.CleanLibrary, monitor: monitoring.Monitor) -> None:
         self.logger = logging.getLogger(self)
@@ -36,7 +35,7 @@ class CleanLibraryTaskHandler:
         while waiting.
         """
 
-        self.logger.debug("Starting library clean.")
+        self.logger.info("Starting library clean...")
 
         self.monitor.attach(monitoring.Event.onCleanStarted, self._onStarted)
         self.monitor.attach(monitoring.Event.onCleanFinished, self._onFinished)
@@ -49,17 +48,15 @@ class CleanLibraryTaskHandler:
                 self.logger.warn("Waiting for Kodi library clean to start has timed out.")
                 return
 
-            self.logger.debug("Kodi library clean started. Waiting to finish.")
-            finished = self.finishEvent.wait(self.WAIT_TO_FINISH_TIMEOUT)
-            if not finished:
-                self.logger.warn("Waiting for Kodi library clean to finish has timed out.")
-                return
-
+            # No timeout here for waiting as it can take a pretty long time for the clean
+            # to finish. The event should always get raised by Kodi. It's raised when
+            # the clean succeeds, fails or if we exit Kodi during the clean.
+            self.finishEvent.wait()
         finally:
             self.monitor.detach(monitoring.Event.onCleanStarted, self._onStarted)
             self.monitor.detach(monitoring.Event.onCleanFinished, self._onFinished)
 
-        self.logger.debug("Finished library clean.")
+        self.logger.info("Finished library clean.")
 
     def _onStarted(self):
         self.startEvent.set()
@@ -75,7 +72,6 @@ class CleanLibraryTaskHandler:
 
 class UpdateLibraryTaskHandler:
     WAIT_TO_START_TIMEOUT = 5
-    WAIT_TO_FINISH_TIMEOUT = 30
 
     def __init__(self, task: tasks.UpdateLibrary, monitor: monitoring.Monitor) -> None:
         self.logger = logging.getLogger(self)
@@ -91,7 +87,7 @@ class UpdateLibraryTaskHandler:
         while waiting.
         """
 
-        self.logger.debug("Starting library scan.")
+        self.logger.info("Starting library scan...")
 
         self.monitor.attach(monitoring.Event.onScanStarted, self._onStarted)
         self.monitor.attach(monitoring.Event.onScanFinished, self._onFinished)
@@ -104,16 +100,15 @@ class UpdateLibraryTaskHandler:
                 self.logger.warn("Waiting for Kodi library scan to start has timed out.")
                 return
 
-            self.logger.debug("Kodi library scan started. Waiting to finish.")
-            finished = self.finishEvent.wait(self.WAIT_TO_FINISH_TIMEOUT)
-            if not finished:
-                self.logger.warn("Waiting for Kodi library scan to finish has timed out.")
-                return
+            # No timeout here for waiting as it can take a pretty long time for the scan
+            # to finish. The event should always get raised by Kodi. It's raised when
+            # the scan succeeds, fails or if we exit Kodi during the scan.
+            self.finishEvent.wait()
         finally:
             self.monitor.detach(monitoring.Event.onScanStarted, self._onStarted)
             self.monitor.detach(monitoring.Event.onScanFinished, self._onFinished)
 
-        self.logger.debug("Finished library scan.")
+        self.logger.info("Finished library scan.")
 
     def _onStarted(self):
         self.startEvent.set()

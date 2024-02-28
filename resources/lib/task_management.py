@@ -1,7 +1,7 @@
 import threading
 import resources.lib.logging as logging
 from resources.lib.monitoring import Monitor
-from resources.lib.player import Player
+import resources.lib.player as player
 from resources.lib.task_handling import TaskHandlerFactory
 
 
@@ -15,8 +15,8 @@ class TaskManager(threading.Thread):
     def __init__(self, monitor: Monitor):
         super().__init__()
         self.logger = logging.getLogger(self)
-        self.player = Player()
-        self.player.onPlayBackStoppedCallBack = self._onPlaybackStopped
+        self.player = player.Player()
+        self.player.attach(player.Event.onPlayBackFinished, self._onPlaybackStopped)
         self.tasks = TaskQueue()
         self.tasksLock = threading.Condition()
         self.taskHandlerFactory = TaskHandlerFactory(monitor)
@@ -106,11 +106,11 @@ class TaskManager(threading.Thread):
             return False
 
         if self.player.isPlaying():
-            self.logger.debug("Waiting for playback to stop.")
+            self.logger.info("Waiting for playback to stop.")
             return True
 
         if self.tasks.size() == 0:
-            self.logger.debug("Waiting for new tasks.")
+            self.logger.info("Waiting for new tasks.")
             return True
 
         return False

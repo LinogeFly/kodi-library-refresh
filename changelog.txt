@@ -1,2 +1,5 @@
+v0.1.1
+- Fixed: Queued up clean task never executes if ongoing scan task takes more than 30 seconds to finish.
+
 v0.1.0
 - Initial version.

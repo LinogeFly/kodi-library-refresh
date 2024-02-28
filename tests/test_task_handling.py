@@ -104,34 +104,6 @@ class CleanLibraryTaskHandler_Execute_TestCase(unittest.TestCase):
         # Assert
         self.assertAlmostEqual(sutExecutionTime, 0.1, places=1)
 
-    def test_aborts_ifCleanDoesNotFinishBeforeTheTimeOut_afterExecutingKodiBuiltInFunction(self):
-        # Arrange
-        def sutThreadTarget(monitor):
-            start = time.time()
-            sut.execute()
-            with lock:
-                nonlocal sutExecutionTime
-                sutExecutionTime = time.time() - start
-
-        sutExecutionTime = 0
-        lock = threading.Lock()
-        monitor = Monitor()
-        mediaSource = MediaSource("/media/movies", MediaType.video)
-        task = tasks.CleanLibrary(mediaSource)
-        sut = CleanLibraryTaskHandler(task, monitor)
-        sut.WAIT_TO_FINISH_TIMEOUT = 0.1
-        sutThread = Thread(target=sutThreadTarget, args=(monitor,))
-
-        # Act
-        sutThread.start()
-        monitor.onCleanStarted("video")
-        time.sleep(0.2)
-        monitor.onCleanFinished("video")
-        sutThread.join()
-
-        # Assert
-        self.assertAlmostEqual(sutExecutionTime, 0.1, places=1)
-
 
 class UpdateLibraryTaskHandler_Execute_TestCase(unittest.TestCase):
     def setUp(self):
@@ -221,34 +193,6 @@ class UpdateLibraryTaskHandler_Execute_TestCase(unittest.TestCase):
         sutThread.start()
         time.sleep(0.2)
         monitor.onScanStarted("video")
-        monitor.onScanFinished("video")
-        sutThread.join()
-
-        # Assert
-        self.assertAlmostEqual(sutExecutionTime, 0.1, places=1)
-
-    def test_aborts_ifUpdateDoesNotFinishBeforeTheTimeOut_afterExecutingKodiBuiltInFunction(self):
-        # Arrange
-        def sutThreadTarget(monitor):
-            start = time.time()
-            sut.execute()
-            with lock:
-                nonlocal sutExecutionTime
-                sutExecutionTime = time.time() - start
-
-        sutExecutionTime = 0
-        lock = threading.Lock()
-        monitor = Monitor()
-        mediaSource = MediaSource("/media/movies", MediaType.video)
-        task = tasks.UpdateLibrary(mediaSource)
-        sut = UpdateLibraryTaskHandler(task, monitor)
-        sut.WAIT_TO_FINISH_TIMEOUT = 0.1
-        sutThread = Thread(target=sutThreadTarget, args=(monitor,))
-
-        # Act
-        sutThread.start()
-        monitor.onScanStarted("video")
-        time.sleep(0.2)
         monitor.onScanFinished("video")
         sutThread.join()
 

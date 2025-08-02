@@ -28,7 +28,7 @@ The add-on is not yet published to the official Kodi repository, so you have to 
 
 1. Download the latest installation file from [here](https://github.com/LinogeFly/kodi-library-refresh/releases/latest). Look for kodi-library-refresh-x.x.x.zip file under Assets.
 2. Make sure you have "Unknown resources" setting enabled in Kodi. Find the setting under Settings > System > Add-ons > General section.
-3. Use the "Install from zip file" action in Kodi and then select the zip file you downloaded in step 1.
+3. Go to Settings > Add-ons section, find "Install from zip file" action and then select the zip file you downloaded in step 1.
 
 ## Usage
 
